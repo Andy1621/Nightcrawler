@@ -112,7 +112,7 @@ And you will get the test results of this stages and generate `.pkl` files to st
 
 
 
-### Inference and Post-Processing
+### 1.Inference and Post-Processing
 
 After pseudo labeling, we will get five well-trained models in five experiment(exp) folders as the followings, and the weight will be saved in `dark/best.pyth` under every exp folder. 
 
@@ -143,7 +143,7 @@ TEST.CHECKPOINT_FILE_PATH: exp_folder/dark/best.pyth #the weight path of best mo
 >We generated two types of results:1(view)x3(crop) and 3(view)x3(crop) under every exp folder at the same time to facilitate voting in post-processing, which are a total of 2(type)*5(model) results.
 
 
-#### Post-Processing and Voting
+#### 2.Post-Processing and Voting
 We have constructed five different ensemble methods and used voting to achieve the best performance. We use `mode` to represent different ensemble methods in `test_ensemble_vote.py`. There are three core functions:
 
 * `select_thres`: Complete a certain kind of ensemble method.
