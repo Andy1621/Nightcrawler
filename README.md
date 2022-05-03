@@ -153,3 +153,13 @@ We have constructed five different ensemble methods and used voting to achieve t
 > It should be noted that we need to update the paths of the previous 2(type)*5(model) results in the select_thres function.
 
 
+
+
+## License
+
+This project is released under the MIT license. Please see the [LICENSE](LICENSE) file for more information.
+
+
+## Acknowledgement
+
+This repository is built based on [UniFormer](https://github.com/Sense-X/UniFormer/tree/main/video_classification) and [SlowFast](https://github.com/facebookresearch/SlowFast) repository.
