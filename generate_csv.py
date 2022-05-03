@@ -3,7 +3,7 @@ import pickle
 import csv
 import slowfast.utils.metrics as metrics
 
-pre_path = '/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/testx32x224x1x3.pkl'
+pre_path = 'res.pkl'
 
 test_path = 'data/test.csv'
 

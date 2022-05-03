@@ -5,7 +5,7 @@ import torch.optim
 import torch.utils.data
 import torch.nn.functional as F
 
-def cal_threshold(x,THRE=2):
+def cal_threshold(x, THRE=2):
     top_prob, top_label = torch.topk(F.softmax(x, dim=1), k=1)
     top_label = top_label.squeeze().t()
     top_prob = top_prob.squeeze().t()

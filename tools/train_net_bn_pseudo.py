@@ -123,11 +123,10 @@ def train_epoch(train_source_loader,train_target_loader, model, optimizer, loss_
         is_second_order = hasattr(optimizer, 'is_second_order') and optimizer.is_second_order
         loss_scaler(loss, optimizer, clip_grad=cfg.SOLVER.CLIP_GRADIENT, parameters=model.parameters(), create_graph=is_second_order)
 
-
         with torch.cuda.amp.autocast():
             target_preds = model(target_inputs)
             # cal threshold for every gpu 
-            _,top_prob,threshold = cal_threshold(target_preds.detach(),cfg.TRAIN.THRESHOLD)
+            _,top_prob,threshold = cal_threshold(target_preds.detach(), cfg.TRAIN.THRESHOLD)
             #[threshold] = du.all_reduce([threshold])  gpu*worldsize
             mask = (top_prob > threshold).float().squeeze()
             # print(mask.shape)
@@ -135,8 +134,8 @@ def train_epoch(train_source_loader,train_target_loader, model, optimizer, loss_
             # print("target_preds",target_preds.size(),target_preds)
             # print("target_probs",target_probs.size(),target_probs)
             # Explicitly declare reduction to mean.
-            if cfg.MODEL.PSEUDO_LOSS_FUNC !="":
-                loss_fun_target = KLLoss(T = cfg.MODEL.SOFT_T)#losses.get_loss_func(cfg.MODEL.PSEUDO_LOSS_FUNC)()
+            if cfg.MODEL.PSEUDO_LOSS_FUNC != "":
+                loss_fun_target = KLLoss(T = cfg.MODEL.SOFT_T) # losses.get_loss_func(cfg.MODEL.PSEUDO_LOSS_FUNC)()
                 target_loss = loss_fun_target(target_preds,target_probs).squeeze()
             else:
                 loss_fun_target = losses.get_loss_func(cfg.MODEL.LOSS_FUNC)(reduction="mean")
@@ -609,7 +608,7 @@ def train(cfg):
             flag_bright = eval_epoch(val_bright_loader, model, val_bright_meter, loss_scaler, cur_epoch, cfg)
             flag_dark = eval_epoch(val_dark_loader, model, val_dark_meter, loss_scaler, cur_epoch, cfg)
             if flag_dark:
-                cu.save_best_checkpoint(os.path.join(cfg.OUTPUT_DIR,"dark"), model, optimizer, loss_scaler, cur_epoch, cfg)
+                cu.save_best_checkpoint(cfg.OUTPUT_DIR, model, optimizer, loss_scaler, cur_epoch, cfg)
 
     # if writer is not None:
     #     writer.close()
