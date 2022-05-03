@@ -6,10 +6,11 @@ We achieve 90.7% top-1 accuracy for [extreme dark video classification](https://
 ## Introduction
 Our method consists of three steps:
 1. **[Supervised Training]**: Only thosed videos under normal light are used for training. Those dark videos are used for adapting BN.
-2. **[Model Voting]**: Different models are voted via specific threshold to generate more accurate pseudo labels.
+2. **[Model Ensemble]**: Different models are ensembled via specific threshold to generate more accurate pseudo labels.
 3. **[Semi-supervised Training]**: Those darks videos with pseudo labels are used for training.
+4. **[Test Time Augmentation]**: We use multi-crop and multi-view for each fragment and gamma correction to enhance videos.
 
-The final two steps are repeated four times, and we only select those pseudo with high confidence for training.
+The final 2-3 steps are repeated four times, and we only select those pseudo with high confidence for training.
 
 
 ## Model Zoo
