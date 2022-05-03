@@ -100,7 +100,7 @@ And you will get the test results of this stages and generate `.pkl` files to st
    --> generate_pseudo_label_stage4 --> exp_pseudo_arid_stage4
    ```
    
-#### Tesing
+<!-- #### Tesing
 
 #### Model Voting
 
@@ -108,7 +108,7 @@ And you will get the test results of this stages and generate `.pkl` files to st
 #### Generating Pseudo Labels
 
 
-#### Semi-upervised Training
+#### Semi-upervised Training -->
 
 
 
