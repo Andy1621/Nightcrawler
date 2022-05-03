@@ -4,7 +4,7 @@ We achieve 90.7% top-1 accuracy for [extreme dark video classification](https://
 
 
 ## Introduction
-Our method consists of three steps:
+Our method consists of four steps:
 1. **[Supervised Training]**: Only thosed videos under normal light are used for training. Those dark videos are used for adapting BN.
 2. **[Model Ensemble]**: Different models are ensembled via specific threshold to generate more accurate pseudo labels.
 3. **[Semi-supervised Training]**: Those darks videos with pseudo labels are used for training.
