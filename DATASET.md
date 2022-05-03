@@ -28,12 +28,12 @@ cp -r your_data_path/ARID_v1.5/clips_v1.5/* ./dark_train/Train
 ## Usage
 
 1. **[Supervised Training]**:
-    - **Dataset1** and **Dataset2** are used for supervised training, all the videos and labels are utlized to trained the models.
-    - **Dataset3** and **Dataset5** are used for **adapting BN**, only the videos are utilized to updated the parameters in BN.
-    - **Dataset5** is used for validation, all the videos and labels are utlized to select the best model.
+    - **Normal-light Training Dataset** and **Normal-light Validation Dataset** are used for supervised training, all the videos and labels are utlized to trained the models.
+    - **Dark Training Dataset** and **ARID Training Dataset** are used for **adapting BN**, only the videos are utilized to updated the parameters in BN.
+    - **ARID Training Dataset** is used for validation, all the videos and labels are utlized to select the best model.
 2. **[Semi-supervised Training]**:
-    - **Dataset3** and **Dataset5** are used for generating **pseudo labels**, only those pseudo labels with high confidence are utilized for training.
-    - **Dataset1** and **Dataset2** are also used for semi-supervised training.
-    - **Dataset5** is still used for validation, all the videos and labels are utlized to select the best model.
+    - **Dark Training Dataset** and **ARID Training Dataset** are used for generating **pseudo labels**, only those pseudo labels with high confidence are utilized for training.
+    - **Normal-light Training Dataset** and **Normal-light Validation Dataset** are also used for semi-supervised training.
+    - **ARID Training Dataset** is still used for validation, all the videos and labels are utlized to select the best model.
 3. **[Testing]**
-    - **Dataset4** is used for testing, only the videos are used for generated corresponding predictions.
+    - **Dark Testing Dataset** is used for testing, only the videos are used for generated corresponding predictions.
