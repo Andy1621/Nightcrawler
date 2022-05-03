@@ -1,0 +1,39 @@
+# Dataset
+
+## Type
+The [UG2+ 2022 Track2](https://codalab.lisn.upsaclay.fr/competitions/1112) provide 4 datasets:
+1. Normal-light Training Dataset (2625 videos w/ label)
+2. Normal-light Validation Dataset (330 videos w/ label)
+3. Dark Training Dataset (3088 videos w/o label)
+4. Dark Testing Dataset (3102 videos w/o label)
+
+Besides, the organizers allow to utilize [ARID](https://xuyu0010.github.io/arid.html) dataset to validation and provide pseudo labels.
+
+5. ARID Training Dataset (6207 videos w/o label).
+
+## Prepartion
+1. Download all the data in [UG2+ 2022 Track2](https://codalab.lisn.upsaclay.fr/competitions/1112) and [ARID_v1.5](https://xuyu0010.github.io/arid.html).
+2. Prepare soft links in `./data`, we haved provided all the CSV files.
+```shell
+# soft link for UG2
+ln -s your_data_path/dark-train dark_train
+ln -s your_data_path/dry-run dry_run
+ln -s your_data_path/labeled-train labeled_train
+ln -s your_data_path/Test Test
+# copy data from ARID
+cp -r your_data_path/ARID_v1.5/clips_v1.5/* ./dark_train/Train
+```
+
+
+## Usage
+
+1. **[Supervised Training]**:
+    - **Dataset1** and **Dataset2** are used for supervised training, all the videos and labels are utlized to trained the models.
+    - **Dataset3** and **Dataset5** are used for **adapting BN**, only the videos are utilized to updated the parameters in BN.
+    - **Dataset5** is used for validation, all the videos and labels are utlized to select the best model.
+2. **[Semi-supervised Training]**:
+    - **Dataset3** and **Dataset5** are used for generating **pseudo labels**, only those pseudo labels with high confidence are utilized for training.
+    - **Dataset1** and **Dataset2** are also used for semi-supervised training.
+    - **Dataset5** is still used for validation, all the videos and labels are utlized to select the best model.
+3. **[Testing]**
+    - **Dataset4** is used for testing, only the videos are used for generated corresponding predictions.
