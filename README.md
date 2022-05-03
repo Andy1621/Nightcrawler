@@ -112,7 +112,7 @@ And you will get the test results of this stages and generate `.pkl` files to st
 
 
 
-### 1.Inference and Post-Processing
+### Inference and Post-Processing
 
 After pseudo labeling, we will get five well-trained models in five experiment(exp) folders as the followings, and the weight will be saved in `dark/best.pyth` under every exp folder. 
 
@@ -124,7 +124,7 @@ After pseudo labeling, we will get five well-trained models in five experiment(e
 
 
 
-#### Inference with Well-Trained Models 
+#### 1.Inference with Well-Trained Models 
 We use two types of TTA in inference. First we use multi-crop and multi-view for each fragment, then we use gamma correction to enhance the videos. Gamma correction is integrated into the inference process.  We provide the script `test.sh` under every exp folder to infer the model. You can easily run the script like 
 ```bash
 bash exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/test.sh
