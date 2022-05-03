@@ -70,11 +70,14 @@ After pseudo labeling, we will get five well-trained models in five experiment(e
 
 
 #### Inference with Well-Trained Models 
-We use two types of TTA in inference. First we use multi-crop and multi-view for each fragment, then we use gamma correction to enhance the videos.
-We provide the script `test.sh` under every exp folder to infer the model. You can easily run the script like `bash exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/test.sh`. Gamma correction is integrated in the inference process. 
+We use two types of TTA in inference. First we use multi-crop and multi-view for each fragment, then we use gamma correction to enhance the videos. Gamma correction is integrated into the inference process.  We provide the script `test.sh` under every exp folder to infer the model. You can easily run the script like 
+```bash
+bash exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/test.sh
+```
+
 
 **[Note]:**
-Update `test.sh`:
+We need to update `test.sh`:
 ```yaml
 TEST.DATA_SELECT: test #the set name to infer, using `test` as the final test set .
 TEST.NUM_ENSEMBLE_VIEWS: 3 #the view number for every fragment, and default `3` works best.
@@ -86,8 +89,7 @@ TEST.CHECKPOINT_FILE_PATH: exp_folder/dark/best.pyth #the weight path of best mo
 
 
 #### Post-Processing and Voting
-We have constructed five different ensemble methods and used voting to achieve the best performance. We use `mode` to represent different ensemble methods in `test_ensemble_vote.py`.
-There are three core functions:
+We have constructed five different ensemble methods and used voting to achieve the best performance. We use `mode` to represent different ensemble methods in `test_ensemble_vote.py`. There are three core functions:
 
 * `select_thres`: Complete a certain kind of ensemble method.
 * `generate_final_sub`: Generate a reslut csv file for one ensemble method.
