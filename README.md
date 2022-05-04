@@ -2,6 +2,8 @@
 This repo is the top-2 solution for [UG2+ 2022 Track2](http://cvpr2022.ug2challenge.org/dataset22_t2.html).
 We achieve 90.7% top-1 accuracy for [extreme dark video classification](https://codalab.lisn.upsaclay.fr/competitions/1112#results).
 
+![contents](./img/ug2_poster.pdf)
+
 
 ## Introduction
 Our method consists of four steps:
