@@ -98,7 +98,6 @@ TEST.CHECKPOINT_FILE_PATH: your_model_path
    It will generate the testing results in `*.pkl` files.
    Note that you should set the `TEST.CHECKPOINT_FILE_PATH` in `test.sh`. It will load the best models by default.
 
-`xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
 
 ### Pseudo-label Generation
 
@@ -126,9 +125,6 @@ If you want to adjust the threshold by yourself, you can set the PKL file path i
    It will generate the testing results in `*.pkl` files.
    Note that you should set the `TEST.CHECKPOINT_FILE_PATH` in `test.sh`. It will load the best models by default.
 
-`xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
-
-
 
 ## Inference and Post-Processing
 
@@ -150,7 +146,6 @@ You can simply run the testing script as follows:
 ```shell
 bash ./exp_pseudo_stageX/xxxx/test.sh
 ```
-`xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
 
 Note that you should set the hyperparameters `config,yaml` or `test.sh`:
 ```yaml
