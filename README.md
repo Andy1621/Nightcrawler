@@ -19,13 +19,12 @@ See [MODEL_ZOO.md](./MODEL_ZOO.md) for more details.
 ## Dataset
 See [DATASET.md](./DATASET.md) for more details.
 
-## Usage
-### Installation
+## Installation
 
 Please follow the installation instructions in [INSTALL.md](INSTALL.md). You may follow the instructions in [DATASET.md](DATASET.md) to prepare the datasets.
 
 
-### Training
+## Training
 
 The training process can roughtly divided into two stages, including:
    - **Supervised Training** for training the basic models;
@@ -82,7 +81,7 @@ TRAIN.CHECKPOINT_FILE_PATH: your_model_path
 TEST.CHECKPOINT_FILE_PATH: your_model_path  
 ```
 
-#### Supervised Training
+### Supervised Training
 
 
 1. Simply run the training scripts in [exp_adapt_bn](exp_adapt_bn) as follows:
@@ -101,7 +100,7 @@ TEST.CHECKPOINT_FILE_PATH: your_model_path
 
 `xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
 
-#### Pseudo-label Generation
+### Pseudo-label Generation
 
 In [gen_pesudo_tools](./gen_pesudo_tools), we provide the scripts we used to generate the pseudo labels in each iteration, wherein we set the best thresholds according to the validation accuracy.
 
@@ -111,7 +110,7 @@ python3 gen_pesudo_tools/generate_pseudo_label_stageX.py
 
 If you want to adjust the threshold by yourself, you can set the PKL file path in [generate_pseudo_label_arid_emu.py](./gen_pesudo_tools/generate_pseudo_label_arid_emu.py).
 
-#### Pseudo-label Iterations
+### Pseudo-label Iterations
 
 1. Simply run the training scripts in [exp_pseudo_stageX]() as follows:
    ```shell
@@ -131,18 +130,18 @@ If you want to adjust the threshold by yourself, you can set the PKL file path i
 
 
 
-### Inference and Post-Processing
+## Inference and Post-Processing
 
 After the above steps, we will get five well-trained models `best.pyth` in five experiment folders as follows:
 
 - [exp_experts/uniformer_b32_ssv2](./exp_experts/uniformer_b32_ssv2);
 - [exp_pseudo_stage4/mvit_b32_k600](./exp_pseudo_stage4/mvit_b32_k600/);
 - [exp_pseudo_stage4/sf32_k700](./exp_pseudo_stage4/sf32_k700/);
-- [exp_pseudo_stage4/uniformer_b32_k600/](./exp_pseudo_stage4/uniformer_b32_k600/);
+- [exp_pseudo_stage4/uniformer_b32_k600](./exp_pseudo_stage4/uniformer_b32_k600/);
 - [exp_pseudo_stage4/uniformer_b32_ssv2](./exp_pseudo_stage4/uniformer_b32_ssv2/). 
 
 
-#### Inference with Well-Trained Models 
+### Inference with Well-Trained Models 
 We use two types of TTA (Test-Time Augmentation) in inference.
 - Multi-crop and multi-view sampling for each videos;
 - Gamma Correction is integrated into the inference process to enhance dark videos. 
@@ -172,7 +171,7 @@ After inference, we generated two types of results under every experiment folder
 There are totally 2 x 5 = 10 results (PKL files).
 
 
-#### Post-Processing and Voting
+### Post-Processing and Voting
 
 To achieve the best performance, we further vote the above testing results in [test_ensemble_vote.py](test_ensemble_vote.py). We use `mode` to represent different ensemble methods. There are three core functions:
 
