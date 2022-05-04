@@ -3,10 +3,10 @@
 
 |   Stage   | Model                | ARID Top-1 | Download   | Shell|
 | --------- | -------------------- | --------------- | ---------- | ---- |
-| Pre-train | UniFormer-B32-K600   | -               | [google](https://drive.google.com/file/d/1-DwdVf8w8lYj-iFpU40pfEpog9VE5PQB/view?usp=sharing) | - |
-| Pre-train | UniFormer-B32-SSV2   | -               | [google](https://drive.google.com/file/d/1-rpMARXnyvyj6YUJkIvVqtna86egpjoS/view?usp=sharingg) | - |
-| Pre-train | MViT-B32-K600        | -               | [google](https://dl.fbaipublicfiles.com/pyslowfast/model_zoo/mvit/k600.pyth) | - |
-| Pre-train | SlowFast-R101-K700   | -               | [google](https://drive.google.com/file/d/1v1FdPUXBNRj-oKfctScT4L4qk8L1k3Gg/view?usp=sharing) | - |
+| Pre-train | UniFormer-B32-K600   | N/A               | [google](https://drive.google.com/file/d/1-DwdVf8w8lYj-iFpU40pfEpog9VE5PQB/view?usp=sharing) | N/A |
+| Pre-train | UniFormer-B32-SSV2   | N/A               | [google](https://drive.google.com/file/d/1-rpMARXnyvyj6YUJkIvVqtna86egpjoS/view?usp=sharingg) | N/A |
+| Pre-train | MViT-B32-K600        | N/A               | [google](https://dl.fbaipublicfiles.com/pyslowfast/model_zoo/mvit/k600.pyth) | N/A |
+| Pre-train | SlowFast-R101-K700   | N/A               | [google](https://drive.google.com/file/d/1v1FdPUXBNRj-oKfctScT4L4qk8L1k3Gg/view?usp=sharing) | N/A |
 | Adapt BN  | UniFormer-B32-K600   | -               | [google]() | [run.sh](./exp_adapt_bn/uniformer_b32_k600/) |
 | Adapt BN  | UniFormer-B32-SSV2   | -               | [google]() | [run.sh](./exp_adapt_bn/uniformer_b32_ssv2/) |
 | Adapt BN  | MViT-B32-K600        | -               | [google]() | [run.sh](./exp_adapt_bn/mvit_b32_k600/) |
