@@ -7,10 +7,10 @@
 | Pre-train | UniFormer-B32-SSV2   | N/A               | [google](https://drive.google.com/file/d/1-rpMARXnyvyj6YUJkIvVqtna86egpjoS/view?usp=sharingg) | N/A |
 | Pre-train | MViT-B32-K600        | N/A               | [google](https://dl.fbaipublicfiles.com/pyslowfast/model_zoo/mvit/k600.pyth) | N/A |
 | Pre-train | SlowFast-R101-K700   | N/A               | [google](https://drive.google.com/file/d/1v1FdPUXBNRj-oKfctScT4L4qk8L1k3Gg/view?usp=sharing) | N/A |
-| Adapt BN  | UniFormer-B32-K600   | -               | [google](https://drive.google.com/file/d/1ST1TDcby8WioF7A3jZ6ZbA5XfZW-Mfdp/view?usp=sharing) | [run.sh](./exp_adapt_bn/uniformer_b32_k600/) |
-| Adapt BN  | UniFormer-B32-SSV2   | -               | [google](https://drive.google.com/file/d/1iFhi-LpXBnGuDjz6bbA6ceBYgaY8GCQX/view?usp=sharing) | [run.sh](./exp_adapt_bn/uniformer_b32_ssv2/) |
-| Adapt BN  | MViT-B32-K600        | -               | [google](https://drive.google.com/file/d/1myUhgFEZUnCoXqOnh1ASIFG2RANW2epx/view?usp=sharing) | [run.sh](./exp_adapt_bn/mvit_b32_k600/) |
-| Adapt BN  | SlowFast-R101-K700   | -               | [google](https://drive.google.com/file/d/1bzdgkHhbXtVySc7VOgB96L_7AgeuiaCc/view?usp=sharing) | [run.sh](./exp_adapt_bn/mvit_b32_k600/) |
+| Adapt BN  | UniFormer-B32-K600   | 62.64               | [google](https://drive.google.com/file/d/1ST1TDcby8WioF7A3jZ6ZbA5XfZW-Mfdp/view?usp=sharing) | [run.sh](./exp_adapt_bn/uniformer_b32_k600/) |
+| Adapt BN  | UniFormer-B32-SSV2   | 58.90               | [google](https://drive.google.com/file/d/1iFhi-LpXBnGuDjz6bbA6ceBYgaY8GCQX/view?usp=sharing) | [run.sh](./exp_adapt_bn/uniformer_b32_ssv2/) |
+| Adapt BN  | MViT-B32-K600        | 58.14               | [google](https://drive.google.com/file/d/1myUhgFEZUnCoXqOnh1ASIFG2RANW2epx/view?usp=sharing) | [run.sh](./exp_adapt_bn/mvit_b32_k600/) |
+| Adapt BN  | SlowFast-R101-K700   | 57.79               | [google](https://drive.google.com/file/d/1bzdgkHhbXtVySc7VOgB96L_7AgeuiaCc/view?usp=sharing) | [run.sh](./exp_adapt_bn/mvit_b32_k600/) |
 | Pseudo1   | UniFormer-B32-K600   | -               | [google](https://drive.google.com/file/d/1WlBNtsY0NTQdBlUslWYyopfsoEsNK-E4/view?usp=sharing) | [run.sh](./exp_pseudo_stage1/uniformer_b32_k600/) |
 | Pseudo1   | UniFormer-B32-SSV2   | -               | [google](https://drive.google.com/file/d/1mO6zbU1GYQYdQjXVQazXpdqMugXGVyIC/view?usp=sharing) | [run.sh](./exp_pseudo_stage1/uniformer_b32_ssv2/) |
 | Pseudo1   | MViT-B32-K600        | -               | [google](https://drive.google.com/file/d/1M3VYGPDQ6twBW_aWA17wq3kLhffYpNkQ/view?usp=sharing) | [run.sh](./exp_pseudo_stage1/mvit_b32_k600/) |
