@@ -56,6 +56,7 @@ We provide all the training and testing scripts in `./exp_*`:
 ```
 -  We train all the models with **32 frames** sampled uniformly from the videos, because we find that **uniform sampling** is better than dense sampling.
 -  However, in the final pseudo-label iteration, we train another model with dense sampling in `exp_experts`, which is complementary to other models.
+-  For better recognition in the dark, we use the unlabeled dark videos to adapt the parameters in BatchNorm.
 - Note that in **Pseudo-label Iterations**, all the training hyperparameters are the same as **Supervised Training**. We don't adjust the hyperparameters carefully.
 
 To reproduce our results, you can simply follow our training steps as follows:
