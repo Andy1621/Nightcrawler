@@ -6,11 +6,11 @@ We achieve 90.7% top-1 accuracy for [extreme dark video classification](https://
 ## Introduction
 Our method consists of four steps:
 1. **[Supervised Training]**: Only thosed videos under normal light are used for training. Those dark videos are used for adapting BN.
-2. **[Model Ensemble]**: Different models are ensembled via specific threshold to generate more accurate pseudo labels.
-3. **[Semi-supervised Training]**: Those darks videos with pseudo labels are used for training.
-4. **[Test Time Augmentation]**: We use multi-crop and multi-view for each fragment and gamma correction to enhance videos.
+2. **[Test-Time Augmentation]**: [Gamma Correction](https://pytorch.org/vision/stable/generated/torchvision.transforms.functional.adjust_gamma.html) is adopted to enhance dark videos, while multi-crop and multi-view sampling are used for better classification.
+3. **[Model Ensemble]**: Different models are ensembled via specific threshold to generate more accurate pseudo labels.
+4. **[Semi-supervised Training]**: Those darks videos with pseudo labels are used for training.
 
-The final 2-3 steps are repeated four times, and we only select those pseudo with high confidence for training.
+The final three steps are used for **generating pseudo labels**, which we called **Pseudo-label Iteration**. The iteration is repeated four times, and we only select those pseudo with high confidence for training.
 
 
 ## Model Zoo
@@ -24,135 +24,163 @@ See [DATASET.md](./DATASET.md) for more details.
 
 Please follow the installation instructions in [INSTALL.md](INSTALL.md). You may follow the instructions in [DATASET.md](DATASET.md) to prepare the datasets.
 
+
 ### Training
 
-The training process is divided into five stages, including a basic model training and four stages of pseudo-label training iteration.
+The training process can roughtly divided into two stages, including:
+   - **Supervised Training** for training the basic models;
+   - **Pseudo-label Iterations** for generate accurate pseudo labels progressively.
 
-In each stage, we trained four methods, including K600 pre-trained MVIT, K600 pre-trained SlowFast, K600 pre-trained Uniformer,Something-Somethingv2 pre-trained Uniformer.
+In each stage, we fine-tune four different models, including 
+   - [MViT-B32 pre-trained with Kinetics-600](https://github.com/facebookresearch/SlowFast/blob/main/MODEL_ZOO.md);
+   - [SlowFast-R101 pre-trained with Kinetics-700](https://github.com/MVIG-SJTU/AlphAction/blob/master/MODEL_ZOO.md);
+   - [UniFormer-B32 pre-trained with Kinetics-600](https://github.com/Sense-X/UniFormer/tree/main/video_classification);
+   - [UniFormer-B32 pre-trained with Something-Something V2](https://github.com/Sense-X/UniFormer/tree/main/video_classification).
 
-Each method at any stage has a folder where the config, training/test script are stored.
-
-The arguments of each training/test script are mostly generic, and the training/test script does not need to be modified if you follow our path of datasets and training configs strictly.
-
-If you modify weight path or data path, You may need to modify the following arguments.
+We provide all the training and testing scripts in `./exp_*`:
+```shell
+├── exp_adapt_bn # Supervised Training
+│   ├── mvit_b32_k600
+│   │   ├── config.yaml # model config
+│   │   ├── run.sh # training script
+│   │   └── test.sh # testing script
+│   ├── sf32_k700
+│   ├── uniformer_b32_k600
+│   └── uniformer_b32_ssv2
+├── exp_pseudo_stage1/2/3/4 # Pseudo-label Iterations
+│   ├── mvit_b32_k600
+│   ├── sf32_k700
+│   ├── uniformer_b32_k600
+│   └── uniformer_b32_ssv2
+└── exp_experts # extra model
+    └── uniformer_b32_ssv2
 ```
-DATA.PATH_PREFIX path_to_your_data \ *data* folder path
-NUM_GPUS gpu_num \ 
-TRAIN.CHECKPOINT_FILE_PATH pretrain_model_path \  pretrain model path in training
-TEST.CHECKPOINT_FILE_PATH \  Testing model path
+-  We train all the models with **32 frames** sampled uniformly from the videos, because we find that **uniform sampling** is better than dense sampling.
+-  However, in the final pseudo-label iteration, we train another model with dense sampling in `exp_experts`, which is complementary to other models.
+- Note that in **Pseudo-label Iterations**, all the training hyperparameters are the same with **Supervised Training**. We don't adjust the hyperparameters carefully.
+
+To reproduce our results, you can simply follow our training steps as follows:
+```shell
+exp_adapt_bn 
+   => gen_pseudo_tools/generate_pseudo_label_stage1 
+exp_pseudo_stage1
+   => gen_pseudo_tools/generate_pseudo_label_stage2
+exp_pseudo_stage2
+   => gen_pseudo_tools/generate_pseudo_label_stage3
+exp_pseudo_stage3
+   => gen_pseudo_tools/generate_pseudo_label_stage4
+exp_pseudo_stage4, exp_experts
 ```
 
-**1. Basic model training**
+Basically, you need to set the following hyperparameters in `config.yaml` or `run/test.sh`.
+```yaml
+# Path for your data, see DATASET.md.
+DATA.PATH_PREFIX: "../../data"
+# Path for pre-trained model, see MODEL_ZOO.md
+TRAIN.CHECKPOINT_FILE_PATH: your_model_path
+# Path for testing model
+TEST.CHECKPOINT_FILE_PATH: your_model_path  
+```
 
-**[Note]:** 
-Change the `TRAIN.CHECKPOINT_FILE_PATH` in `run.sh` with the MODEL_ZOO.md pretrain weights.
+#### Supervised Training
 
-Simply run the training scripts in [exp_adapt_bn](exp_adapt_bn) as followed:
+
+1. Simply run the training scripts in [exp_adapt_bn](exp_adapt_bn) as follows:
    ```shell
    bash ./exp_adapt_bn/xxxx/run.sh
    ```
-And you will get the `best.pyth` weight model.
+   It will save the best model in `best.pyth` by default.
+   Note that you should set the `TRAIN.CHECKPOINT_FILE_PATH` in `run.sh`. By the way, you can find the pre-trained modesl in [MODEL_ZOO.md](MODEL_ZOO.md).
 
-
-Change the arguments in `run.sh`,`TRAIN.CHECKPOINT_FILE_PATH` must be loaded with the MODEL_ZOO.md pretrain weights.
-
-Simply run the testing scripts in [exp_adapt_bn](exp_adapt_bn) as followed:
+2. Simply run the testing scripts in [exp_adapt_bn](exp_adapt_bn) as follows:
    ```shell
    bash ./exp_adapt_bn/xxxx/test.sh
    ```
-And you will get the test results of this stages and generate `.pkl` files to store in the folder.
+   It will generate the testing results in `*.pkl` files.
+   Note that you should set the `TEST.CHECKPOINT_FILE_PATH` in `test.sh`. It will load the best models by default.
 
-`xxxx` is the different method. The above steps should be finished for four methods, respectively.
+`xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
 
-**2. Generate the pseudo label**
+#### Pseudo-label Generation
 
-We provide a script to select the threshold in [gen_pesudo_tools](gen_pesudo_tools), the script will give you a sequence of threshold. 
-You need to manually select the good threshold according to your demand. 
-If you want to use this script, you need to change the pkl file path arguments in `generate_pseudo_label_arid_emu.py`.
-```
-python gen_pesudo_tools/generate_pseudo_label_arid_emu.py
-```
-We have given the set of thresholds we selected for each stage. You can run the following script to generate the pseudo-label files directly. X could be 1,2,3,4.
-```
-python gen_pesudo_tools/generate_pseudo_label_stageX.py
-```
-**3. Pseudo-label training iteration**
+In [gen_pesudo_tools](./gen_pesudo_tools), we provide the scripts we used to generate the pseudo labels in each iteration, wherein we set the best thresholds according to the validation accuracy.
 
-Simply run the training scripts in [exp_pseudo_arid_stageX] as followed:
+``` shell
+python3 gen_pesudo_tools/generate_pseudo_label_stageX.py
+```
+
+If you want to adjust the threshold by yourself, you can set the PKL file path in [generate_pseudo_label_arid_emu.py](./gen_pesudo_tools/generate_pseudo_label_arid_emu.py).
+
+#### Pseudo-label Iterations
+
+1. Simply run the training scripts in [exp_pseudo_stageX]() as follows:
    ```shell
-   bash ./exp_adapt_bn/xxxx/run.sh
+   bash ./exp_pseudo_stageX/xxxx/run.sh
    ```
-And you will get the `dark/best.pyth` weight model.
+   It will save the best model in `best.pyth` by default.
+   Note that you should set the `TRAIN.CHECKPOINT_FILE_PATH` in `run.sh`. We simply load the previous pre-trained models, thus `TRAIN.CHECKPOINT_EPOCH_RESET` should be `True`. Besides, you should set `DATA.PSEUDO_CSV` for different pseudo labels. We provide the pseudo labels in [data/pseudo](./data/pseudo/).
 
-Simply run the testing scripts in [exp_pseudo_arid_stageX] as followed:
+2. Simply run the testing scripts in [exp_pseudo_stageX]() as follows:
    ```shell
-   bash ./exp_adapt_bn/xxxx/test.sh
+   bash ./exp_pseudo_stageX/xxxx/test.sh
    ```
-And you will get the test results of this stages and generate `.pkl` files to store in the folder.
+   It will generate the testing results in `*.pkl` files.
+   Note that you should set the `TEST.CHECKPOINT_FILE_PATH` in `test.sh`. It will load the best models by default.
 
-`xxxx` is the different method. The above steps should be finished for four methods, respectively.
-
-**[Note]:** 
-**2 and 3 are circularly executed during four iterations. The complete training process is as follows:**
-   ```
-   exp_adapt_bn --> generate_pseudo_label_stage1 --> exp_pseudo_arid_stage1
-   --> generate_pseudo_label_stage2 --> exp_pseudo_arid_stage2
-   --> generate_pseudo_label_stage3 --> exp_pseudo_arid_stage4
-   --> generate_pseudo_label_stage4 --> exp_pseudo_arid_stage4
-   ```
-   
-<!-- #### Tesing
-
-#### Model Voting
-
-
-#### Generating Pseudo Labels
-
-
-#### Semi-upervised Training -->
+`xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
 
 
 
 ### Inference and Post-Processing
 
-After pseudo labeling, we will get five well-trained models in five experiment(exp) folders as the followings, and the weight will be saved in `dark/best.pyth` under every exp folder. 
+After the above steps, we will get five well-trained models `best.pyth` in five experiment folders as follows:
 
-* [exp_experts/uniformer_b32_ssv2_ce](exp_experts/uniformer_b32_ssv2_ce)
-* [exp_pseudo_arid_stage4/mvit_b32_k600_dp0.3_ce](exp_pseudo_arid_stage4/mvit_b32_k600_dp0.3_ce)
-* [exp_pseudo_arid_stage4/sf32_k700_ce](exp_pseudo_arid_stage4/sf32_k700_ce)
-* [exp_pseudo_arid_stage4/uniformer_b32_k600_ce](exp_pseudo_arid_stage4/uniformer_b32_k600_ce)
-* [exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce](exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce). 
+- [exp_experts/uniformer_b32_ssv2](./exp_experts/uniformer_b32_ssv2);
+- [exp_pseudo_stage4/mvit_b32_k600](./exp_pseudo_stage4/mvit_b32_k600/);
+- [exp_pseudo_stage4/sf32_k700](./exp_pseudo_stage4/sf32_k700/);
+- [exp_pseudo_stage4/uniformer_b32_k600/](./exp_pseudo_stage4/uniformer_b32_k600/);
+- [exp_pseudo_stage4/uniformer_b32_ssv2](./exp_pseudo_stage4/uniformer_b32_ssv2/). 
 
 
+#### Inference with Well-Trained Models 
+We use two types of TTA (Test-Time Augmentation) in inference.
+- Multi-crop and multi-view sampling for each videos;
+- Gamma Correction is integrated into the inference process to enhance dark videos. 
 
-#### 1.Inference with Well-Trained Models 
-We use two types of TTA in inference. First we use multi-crop and multi-view for each fragment, then we use gamma correction to enhance the videos. Gamma correction is integrated into the inference process.  We provide the script `test.sh` under every exp folder to infer the model. You can easily run the script like 
-```bash
-bash exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/test.sh
+You can simply run the testing script as follows:
+```shell
+bash ./exp_pseudo_stageX/xxxx/test.sh
 ```
+`xxxx` refers to the different methods. The above steps should be conducted for four methods respectively.
 
-
-**[Note]:**
-We need to update `test.sh`:
+Note that you should set the hyperparameters `config,yaml` or `test.sh`:
 ```yaml
-TEST.DATA_SELECT: test #the set name to infer, using `test` as the final test set .
-TEST.NUM_ENSEMBLE_VIEWS: 3 #the view number for every fragment, and default `3` works best.
-TEST.NUM_SPATIAL_CROPS: 3 #the crop number for every fragment, and default `3` works best.
-TEST.CHECKPOINT_FILE_PATH: exp_folder/dark/best.pyth #the weight path of best model, such as `exp_folder/dark/best.pyth`
+# The dataset for inferense. Use `test` for the final testing data.
+TEST.DATA_SELECT: test 
+# The view number for each video, and the default `3` is better.
+TEST.NUM_ENSEMBLE_VIEWS: 3 
+# The crop number for each video, and the default `3` is better.
+TEST.NUM_SPATIAL_CROPS: 3
+# Path for well-trained model, it will load the best model by default.
+TEST.CHECKPOINT_FILE_PATH: "exp_pseudo_stage4/xxxx/best.pyth"
 ```
 
->We generated two types of results:1(view)x3(crop) and 3(view)x3(crop) under every exp folder at the same time to facilitate voting in post-processing, which are a total of 2(type)*5(model) results.
+After inference, we generated two types of results under every experiment folder: 
+- 1(view) x 3(crops);
+- 3(view) x 3(crops).
+
+There are totally 2 x 5 = 10 results (PKL files).
 
 
-#### 2.Post-Processing and Voting
-We have constructed five different ensemble methods and used voting to achieve the best performance. We use `mode` to represent different ensemble methods in `test_ensemble_vote.py`. There are three core functions:
+#### Post-Processing and Voting
 
-* `select_thres`: Complete a certain kind of ensemble method.
-* `generate_final_sub`: Generate a reslut csv file for one ensemble method.
-* `vote_for_sub`: Vote multiple results to generate a new result.
+To achieve the best performance, we further vote the above testing results in [test_ensemble_vote.py](test_ensemble_vote.py). We use `mode` to represent different ensemble methods. There are three core functions:
 
-> It should be noted that we need to update the paths of the previous 2(type)*5(model) results in the select_thres function.
+- `select_thres()`: Complete a certain kind of ensemble method.
+- `generate_final_sub()`: Generate a reslut csv file for one ensemble method.
+- `vote_for_sub()`: Vote multiple results to generate a new result.
 
+Note that you need to update the paths of the previous 10 results in the `select_thres()` function.
 
 
 

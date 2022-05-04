@@ -18,7 +18,6 @@ def get_probs(pkl_path):
     return res_labels,res_probs
 
 
-
 def topk(matrix, K, axis=1):
     if axis == 0:
         row_index = np.arange(matrix.shape[1 - axis])
@@ -61,6 +60,7 @@ def get_em_prob(ssv2_best_probs,uni_best_probs,mvit_best_probs, slowfast_best_pr
 
     return new_probs
 
+
 def get_em_prob_4(ssv2_best_probs,uni_best_probs,mvit_best_probs, slowfast_best_probs):
     ssv2_probs = ssv2_best_probs
     ssv2_preds = ssv2_probs.argmax(1)
@@ -76,7 +76,6 @@ def get_em_prob_4(ssv2_best_probs,uni_best_probs,mvit_best_probs, slowfast_best_
     for i,_ in enumerate(new_preds):
         if new_preds[i]==5 or new_preds[i]==9:
             new_probs[i] = slowfast_best_probs[i]
-
 
     return new_probs
 
@@ -94,7 +93,6 @@ def deal_preds(preds,probs):
                 preds[i] = 8
             elif (probs[i][0]>=0.01): #17 0.03
                 preds[i] = 0
-
 
     for i in range(len(preds)):
         if preds[i]==9 and probs[i][9]<=0.94:
@@ -145,13 +143,10 @@ def deal_preds(preds,probs):
             elif (probs[i][0]>=0.03): #0.05
                 preds[i] = 0
 
-    
     # for i in range(len(preds)):
     #     if preds[i]==2 and probs[i][2]<=0.68:
     #         if( probs[i][3]>=0.5): #0.11
     #             preds[i] = 3
-
-
 
     # find_idx = 8
     # idx_walk  = (preds==find_idx)
@@ -175,9 +170,7 @@ def deal_preds(preds,probs):
     return preds
 
 
-
 def deal_preds_v2(preds,probs):
-
     for i in range(len(preds)):
         if preds[i]==4 and probs[i][4]<=0.83:
             if( probs[i][5]>=0.1): #0.12
@@ -201,7 +194,6 @@ def deal_preds_v2(preds,probs):
             elif( probs[i][0]>=0.1): #0.06
                 preds[i] = 0
 
-
     for i in range(len(preds)):
         if preds[i]==9 and probs[i][9]<=0.94:
             if( probs[i][5]>=0.3): #0.12
@@ -219,13 +211,6 @@ def deal_preds_v2(preds,probs):
                 preds[i] = 1
             elif (probs[i][0]>=0.008): #17 0.03
                 preds[i] = 0
-
-
-
-
-
-
-
 
     # find_idx = 10
     # idx_walk  = (preds==find_idx)
@@ -250,11 +235,7 @@ def deal_preds_v2(preds,probs):
     return preds
 
 
-
-
-
 def deal_preds_v3(preds,probs):
-
     for i in range(len(preds)):
         if preds[i]==10 and probs[i][10]<=0.8:
             if( probs[i][3]>=0.15): # 0.10
@@ -273,12 +254,10 @@ def deal_preds_v3(preds,probs):
             elif( probs[i][0]>=0.2): #0.08
                 preds[i] = 0
 
-
     # for i in range(len(preds)):
     #     if preds[i]==7 and probs[i][7]<=0.26:
     #         if( probs[i][2]>=0.05): #0.02
-    #             preds[i] = 2
-            
+    #             preds[i] = 2    
     
     for i in range(len(preds)):
         if preds[i]==4 and probs[i][4]<=0.83:
@@ -305,9 +284,7 @@ def deal_preds_v3(preds,probs):
     return preds
 
 
-
 def deal_preds_v4(preds,probs):
-
     for i in range(len(preds)):
         if preds[i]==10 and probs[i][10]<=0.9:
             if( probs[i][3]>=0.2): # 0.10
@@ -326,13 +303,11 @@ def deal_preds_v4(preds,probs):
             elif( probs[i][0]>=0.2): #0.08
                 preds[i] = 0
 
-
     # for i in range(len(preds)):
     #     if preds[i]==7 and probs[i][7]<=0.26:
     #         if( probs[i][2]>=0.05): #0.02
     #             preds[i] = 2
             
-    
     for i in range(len(preds)):
         if preds[i]==4 and probs[i][4]<=0.9:
             if( probs[i][5]>=0.2): #0.11
@@ -359,24 +334,19 @@ def deal_preds_v4(preds,probs):
     return preds
 
 
-
 def select_thres(mode):
-
-
-    if mode==0 or mode==1 or mode==2:
-        ssv2_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/testx32x224x1x3.pkl"
-        uni_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/uniformer_b32_k600_ce/testx32x224x1x3.pkl"
-        mvit_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/mvit_b32_k600_dp0.3_ce/testx32x224x1x3.pkl"
-        slowfast_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/sf32_k600_ce/testx32x224x1x3.pkl"
-        dense_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_experts/uniformer_b32_ssv2_ce/testx32x224x1x1.pkl"
-    elif mode==3 or mode==4:
-        ssv2_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/uniformer_b32_ssv2_ce/testx32x224x3x3.pkl"
-        uni_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/uniformer_b32_k600_ce/testx32x224x3x3.pkl"
-        mvit_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/mvit_b32_k600_dp0.3_ce/testx32x224x3x3.pkl"
-        slowfast_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_pseudo_arid_stage4/sf32_k600_ce/testx32x224x3x3.pkl"
-        dense_best_path = "/mnt/lustre/likunchang.vendor/sjj/ug2_uniformer_competition/exp_experts/uniformer_b32_ssv2_ce/testx32x224x3x3.pkl"
-
-
+    if mode == 0 or mode == 1 or mode == 2:
+        ssv2_best_path = "././exp_pseudo_stage4/uniformer_b32_ssv2/testx32x224x1x3.pkl"
+        uni_best_path = "./exp_pseudo_stage4/uniformer_b32_k600/testx32x224x1x3.pkl"
+        mvit_best_path = "./exp_pseudo_stage4/mvit_b32_k600/testx32x224x1x3.pkl"
+        slowfast_best_path = "./exp_pseudo_stage4/sf32_k700/testx32x224x1x3.pkl"
+        dense_best_path = "./exp_experts/uniformer_b32_ssv2/testx32x224x1x1.pkl"
+    elif mode == 3 or mode == 4:
+        ssv2_best_path = "./exp_pseudo_stage4/uniformer_b32_ssv2/testx32x224x3x3.pkl"
+        uni_best_path = "./exp_pseudo_stage4/uniformer_b32_k600/testx32x224x3x3.pkl"
+        mvit_best_path = "./exp_pseudo_stage4/mvit_b32_k600/testx32x224x3x3.pkl"
+        slowfast_best_path = "./exp_pseudo_stage4/sf32_k700/testx32x224x3x3.pkl"
+        dense_best_path = "./exp_experts/uniformer_b32_ssv2/testx32x224x3x3.pkl"
 
     _, ssv2_best_probs = get_probs(ssv2_best_path)
     _, uni_best_probs = get_probs(uni_best_path)
@@ -384,22 +354,18 @@ def select_thres(mode):
     _, slowfast_best_probs = get_probs(slowfast_best_path)
     _, dense_best_probs = get_probs(dense_best_path)
 
-
-
     probs = get_em_prob(ssv2_best_probs, uni_best_probs, mvit_best_probs, slowfast_best_probs,dense_best_probs,mode)
     
-
-
     # probs = ssv2_best_probs
     preds = probs.argmax(1)
 
-    if mode ==1:
+    if mode == 1:
         preds = deal_preds(preds,probs)
-    elif mode ==2:
+    elif mode == 2:
         preds = deal_preds_v2(preds,probs)
-    elif mode ==3:
+    elif mode == 3:
         preds = deal_preds_v3(preds,probs)
-    elif mode ==4:
+    elif mode == 4:
         preds = deal_preds_v4(preds,probs)
 
     probs = torch.from_numpy(probs).softmax(1).to(torch.float32)
@@ -409,8 +375,8 @@ def select_thres(mode):
     # print(confusion_matrix(labels, newpreds))
     # print(accuracy_score(labels, newpreds))
 
-def generate_final_sub(preds,probs,mode):
 
+def generate_final_sub(preds,probs,mode):
     test_path = 'data/test.csv'
     with open(test_path, 'r') as f:
         test_lines = f.readlines()
@@ -424,9 +390,7 @@ def generate_final_sub(preds,probs,mode):
         csv_writer.writerow([i, file_name, preds[i], probs[i].unsqueeze(0).data])
 
 
-
 def vote_for_sub():
-    
     prefix = './submission'
 
     file_list = [
@@ -446,7 +410,6 @@ def vote_for_sub():
             for row in csv_reader:
                 pred.append(row)
             pred_data.append(pred)
-
 
     vote_pred = []
     for i in range(len(pred_data[0])):
@@ -469,11 +432,8 @@ def vote_for_sub():
 
 
 if __name__ == '__main__':
-
     for i in range(4):
         preds,probs = select_thres(mode=i)
         generate_final_sub(preds,probs,mode=i)
     vote_for_sub()
     
-
-

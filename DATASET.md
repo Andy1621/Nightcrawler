@@ -23,7 +23,7 @@ ln -s your_data_path/Test Test
 # copy data from ARID
 cp -r your_data_path/ARID_v1.5/clips_v1.5/* ./dark_train/Train
 ```
-
+After the above steps, you can simple set `DATA.PATH_PREFIX` as `data`.
 
 ## Usage
 
