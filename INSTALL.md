@@ -1,6 +1,6 @@
 # Installation
 
-Our repo is forked from [UniFormer](https://github.com/Sense-X/UniFormer/tree/main/video_classification), thus all the requirments are the same.
+Our repo is forked from [UniFormer](https://github.com/Sense-X/UniFormer/tree/main/video_classification), thus all the requirements are the same.
 
 ## Requirements
 - Python >= 3.8

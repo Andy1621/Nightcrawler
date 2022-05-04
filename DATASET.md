@@ -7,7 +7,7 @@ The [UG2+ 2022 Track2](https://codalab.lisn.upsaclay.fr/competitions/1112) provi
 3. Dark Training Dataset (3088 videos w/o label)
 4. Dark Testing Dataset (3102 videos w/o label)
 
-Besides, the organizers allow to utilize [ARID](https://xuyu0010.github.io/arid.html) dataset to validation and provide pseudo labels.
+Besides, the organizers allow utilizing [ARID](https://xuyu0010.github.io/arid.html) dataset to validate and provide pseudo labels.
 
 5. ARID Training Dataset (6207 videos w/o label).
 
@@ -23,17 +23,17 @@ ln -s your_data_path/Test Test
 # copy data from ARID
 cp -r your_data_path/ARID_v1.5/clips_v1.5/* ./dark_train/Train
 ```
-After the above steps, you can simple set `DATA.PATH_PREFIX` as `data`.
+After the above steps, you can simply set `DATA.PATH_PREFIX` as `data`.
 
 ## Usage
 
 1. **[Supervised Training]**:
-    - **Normal-light Training Dataset** and **Normal-light Validation Dataset** are used for supervised training, all the videos and labels are utlized to trained the models.
-    - **Dark Training Dataset** and **ARID Training Dataset** are used for **adapting BN**, only the videos are utilized to updated the parameters in BN.
-    - **ARID Training Dataset** is used for validation, all the videos and labels are utlized to select the best model.
+    - **Normal-light Training Dataset** and **Normal-light Validation Dataset** are used for supervised training, all the videos and labels are utilized to train the models.
+    - **Dark Training Dataset** and **ARID Training Dataset** are used for **adapting BN**, only the videos are utilized to update the parameters in BN.
+    - **ARID Training Dataset** is used for validation, all the videos and labels are utilized to select the best model.
 2. **[Semi-supervised Training]**:
     - **Dark Training Dataset** and **ARID Training Dataset** are used for generating **pseudo labels**, only those pseudo labels with high confidence are utilized for training.
     - **Normal-light Training Dataset** and **Normal-light Validation Dataset** are also used for semi-supervised training.
-    - **ARID Training Dataset** is still used for validation, all the videos and labels are utlized to select the best model.
+    - **ARID Training Dataset** is still used for validation, all the videos and labels are utilized to select the best model.
 3. **[Testing]**
-    - **Dark Testing Dataset** is used for testing, only the videos are used for generated corresponding predictions.
+    - **Dark Testing Dataset** is used for testing, only the videos are used for generating corresponding predictions.
