@@ -31,10 +31,10 @@ The training process can roughly be divided into two stages, including:
    - **Pseudo-label Iterations** for generating accurate pseudo labels progressively.
 
 In each stage, we fine-tune four different models, including 
-   - [MViT-B32 pre-trained with Kinetics-600](https://github.com/facebookresearch/SlowFast/blob/main/MODEL_ZOO.md);
-   - [SlowFast-R101 pre-trained with Kinetics-700](https://github.com/MVIG-SJTU/AlphAction/blob/master/MODEL_ZOO.md);
    - [UniFormer-B32 pre-trained with Kinetics-600](https://github.com/Sense-X/UniFormer/tree/main/video_classification);
-   - [UniFormer-B32 pre-trained with Something-Something V2](https://github.com/Sense-X/UniFormer/tree/main/video_classification).
+   - [UniFormer-B32 pre-trained with Something-Something V2](https://github.com/Sense-X/UniFormer/tree/main/video_classification);
+   - [MViT-B32 pre-trained with Kinetics-600](https://github.com/facebookresearch/SlowFast/blob/main/MODEL_ZOO.md);
+   - [SlowFast-R101 pre-trained with Kinetics-700](https://github.com/MVIG-SJTU/AlphAction/blob/master/MODEL_ZOO.md).
 
 We provide all the training and testing scripts in `./exp_*`:
 ```shell
@@ -131,10 +131,10 @@ If you want to adjust the threshold by yourself, you can set the PKL file path i
 After the above steps, we will get five well-trained models `best.pyth` in five experiment folders as follows:
 
 - [exp_experts/uniformer_b32_ssv2](./exp_experts/uniformer_b32_ssv2);
-- [exp_pseudo_stage4/mvit_b32_k600](./exp_pseudo_stage4/mvit_b32_k600/);
-- [exp_pseudo_stage4/sf32_k700](./exp_pseudo_stage4/sf32_k700/);
 - [exp_pseudo_stage4/uniformer_b32_k600](./exp_pseudo_stage4/uniformer_b32_k600/);
-- [exp_pseudo_stage4/uniformer_b32_ssv2](./exp_pseudo_stage4/uniformer_b32_ssv2/). 
+- [exp_pseudo_stage4/uniformer_b32_ssv2](./exp_pseudo_stage4/uniformer_b32_ssv2/);
+- [exp_pseudo_stage4/mvit_b32_k600](./exp_pseudo_stage4/mvit_b32_k600/);
+- [exp_pseudo_stage4/sf32_k700](./exp_pseudo_stage4/sf32_k700/).
 
 
 ### Inference with Well-Trained Models 
