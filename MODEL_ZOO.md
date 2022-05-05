@@ -27,7 +27,7 @@
 | Pseudo4   | UniFormer-B32-SSV2   | 90.25               | [google](https://drive.google.com/file/d/1z9JYp1uAVypfK5BfE9ZAvNU9HSHbxvOD/view?usp=sharing) | [run.sh](./exp_pseudo_stage4/uniformer_b32_ssv2/) |
 | Pseudo4   | MViT-B32-K600        | 90.30               | [google](https://drive.google.com/file/d/1GGb-KtcTi06rIuFyHT0Yrk99Dn32UpHF/view?usp=sharing) | [run.sh](./exp_pseudo_stage4/mvit_b32_k600/) |
 | Pseudo4   | SlowFast-R101-K700   | 89.49               | [google](https://drive.google.com/file/d/1MshRoDb0YXIfmhNEhfcYsC7708x-zAJC/view?usp=sharing) | [run.sh](./exp_pseudo_stage4/sf32_k700/) |
-| Pseudo4   | UniFormer-B32†-SSV2   | 89.51               | [google](https://drive.google.com/file/d/1yka9cF4rBHT5lTZRRHfRf455oiB6zaaO/view?usp=sharing) | [run.sh](./exp_experts/uniformer_b32_ssv2/) |
+| Pseudo4   | UniFormer-B32-SSV2†   | 89.51               | [google](https://drive.google.com/file/d/1yka9cF4rBHT5lTZRRHfRf455oiB6zaaO/view?usp=sharing) | [run.sh](./exp_experts/uniformer_b32_ssv2/) |
 
 **Note:**
 1. All models are trained with 32 frames that are uniformly sampled from the raw videos by default, except that the UniFormer-B32† is trained with dense sampling.
