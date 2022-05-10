@@ -437,7 +437,7 @@ def train(cfg):
     train_source_loader = loader.construct_loader(cfg, "train_label")
 
     val_bright_loader = loader.construct_loader(cfg, "val_dry")
-    val_dark_loader = loader.construct_loader(cfg, "real_unlabel", decording="decord_GIC")
+    val_dark_loader = loader.construct_loader(cfg, "arid", decording="decord_GIC")
 
     precise_bn_loader = (
         loader.construct_loader(cfg, "train_unlabel", is_precise_bn=True)

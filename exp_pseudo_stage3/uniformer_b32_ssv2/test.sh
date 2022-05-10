@@ -17,7 +17,7 @@ python tools/run_net_bn.py \
   DATA.TEST_CROP_SIZE 224 \
   TEST.NUM_ENSEMBLE_VIEWS 1 \
   TEST.NUM_SPATIAL_CROPS 1 \
-  TEST.DATA_SELECT real_unlabel_pre \
+  TEST.DATA_SELECT arid \
   TEST.TEST_BEST True \
   TRAIN.ENABLE False \
   RNG_SEED 6666 \

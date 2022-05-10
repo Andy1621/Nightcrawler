@@ -419,14 +419,14 @@ def build_trainer(cfg):
     train_target_loader = loader.construct_loader(cfg, "train_pseudo_label")
 
     val_bright_loader = loader.construct_loader(cfg, "val_dry")
-    val_dark_loader = loader.construct_loader(cfg, "real_unlabel", decording="decord_GIC")
+    val_dark_loader = loader.construct_loader(cfg, "arid", decording="decord_GIC")
 
 
     precise_bn_loader = loader.construct_loader(
         cfg, "train_unlabel", is_precise_bn=True
     )
     # Create meters.
-    train_meter = TrainMeterPseude(len(train_source_loader), cfg)
+    train_meter = TrainMeterPseudo(len(train_source_loader), cfg)
 
     val_bright_meter = ValMeter(len(val_bright_loader), cfg)
     val_dark_meter = ValMeter(len(val_dark_loader), cfg)

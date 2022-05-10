@@ -8,10 +8,10 @@ import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gen_label_list_path', type=str, default="./data/total_unlabel.csv")
-parser.add_argument('--gen_label_pkl_path_ssv2_best', type=str, default="./exp_pseudo_arid/uniformer_b32_ssv2_ce/real_unlabelx32x224x1x1.pkl")
-parser.add_argument('--gen_label_pkl_path_uni_best', type=str, default="./exp_pseudo_arid/uniformer_b32_k600_ce/real_unlabelx32x224x1x1.pkl")
-parser.add_argument('--gen_label_pkl_path_mvit_best', type=str, default="./exp_pseudo_arid/mvit_b32_k600_dp0.3_ce/real_unlabelx32x224x1x1.pkl")
-parser.add_argument('--gen_label_pkl_path_slowfast_best', type=str, default="./exp_pseudo_arid/sf32_k600_ce/real_unlabelx32x224x1x1.pkl")
+parser.add_argument('--gen_label_pkl_path_ssv2_best', type=str, default="./exp_pseudo_arid/uniformer_b32_ssv2_ce/aridx32x224x1x1.pkl")
+parser.add_argument('--gen_label_pkl_path_uni_best', type=str, default="./exp_pseudo_arid/uniformer_b32_k600_ce/aridx32x224x1x1.pkl")
+parser.add_argument('--gen_label_pkl_path_mvit_best', type=str, default="./exp_pseudo_arid/mvit_b32_k600_dp0.3_ce/aridx32x224x1x1.pkl")
+parser.add_argument('--gen_label_pkl_path_slowfast_best', type=str, default="./exp_pseudo_arid/sf32_k600_ce/aridx32x224x1x1.pkl")
 parser.add_argument('--path_pseudo_label', type=str, default="./data/pseudo/7051_0.94_prob_stage2.csv")
 args = parser.parse_args()
 

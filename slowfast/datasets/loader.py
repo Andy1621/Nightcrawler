@@ -125,13 +125,13 @@ def construct_loader(cfg, split, is_precise_bn=False, decording=None):
     """
     assert split in [
         "train_label", "train_unlabel", "train_pseudo_label",
-        "val_dry", "real_unlabel","real_unlabel_pre","test"]
+        "val_dry", "arid", "dark_unlabel", "test"]
     if split in ["train_label", "train_unlabel", "train_pseudo_label"]:
         dataset_name = cfg.TRAIN.DATASET
         batch_size = int(cfg.TRAIN.BATCH_SIZE / max(1, cfg.NUM_GPUS))
         shuffle = True
         drop_last = True
-    elif split in ["val_dry", "real_unlabel","real_unlabel_pre","test"]:
+    elif split in ["val_dry", "arid", "dark_unlabel", "test"]:
         dataset_name = cfg.TEST.DATASET
         batch_size = int(cfg.TEST.BATCH_SIZE / max(1, cfg.NUM_GPUS))
         shuffle = False
