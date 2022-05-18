@@ -20,9 +20,8 @@ ln -s your_data_path/dark-train dark_train
 ln -s your_data_path/dry-run dry_run
 ln -s your_data_path/labeled-train labeled_train
 ln -s your_data_path/Test Test
-ln -s your_data_path/ARID_v1.5/clips_v1.5 dark_train/Train
 # copy data from ARID
-cp -r your_data_path/ARID_v1.5/clips_v1.5/* ./dark_train/Train
+ln -s your_data_path/ARID_v1.5/clips_v1.5 dark_train/Train
 ```
 After the above steps, you can simply set `DATA.PATH_PREFIX` as `data`.
 
