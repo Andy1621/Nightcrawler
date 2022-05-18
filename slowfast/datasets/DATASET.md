@@ -29,7 +29,7 @@ You could follow these steps to download and preprocess the data:
 1. Download videos
 
 ```
-DATA_DIR="../../data/ava/videos"
+DATA_DIR="ava/videos"
 
 if [[ ! -d "${DATA_DIR}" ]]; then
   echo "${DATA_DIR} doesn't exist. Creating it.";
@@ -47,8 +47,8 @@ done
 2. Cut each video from its 15th to 30th minute
 
 ```
-IN_DATA_DIR="../../data/ava/videos"
-OUT_DATA_DIR="../../data/ava/videos_15min"
+IN_DATA_DIR="ava/videos"
+OUT_DATA_DIR="ava/videos_15min"
 
 if [[ ! -d "${OUT_DATA_DIR}" ]]; then
   echo "${OUT_DATA_DIR} doesn't exist. Creating it.";
@@ -67,8 +67,8 @@ done
 3. Extract frames
 
 ```
-IN_DATA_DIR="../../data/ava/videos_15min"
-OUT_DATA_DIR="../../data/ava/frames"
+IN_DATA_DIR="ava/videos_15min"
+OUT_DATA_DIR="ava/frames"
 
 if [[ ! -d "${OUT_DATA_DIR}" ]]; then
   echo "${OUT_DATA_DIR} doesn't exist. Creating it.";
@@ -97,7 +97,7 @@ done
 4. Download annotations
 
 ```
-DATA_DIR="../../data/ava/annotations"
+DATA_DIR="ava/annotations"
 
 if [[ ! -d "${DATA_DIR}" ]]; then
   echo "${DATA_DIR} doesn't exist. Creating it.";

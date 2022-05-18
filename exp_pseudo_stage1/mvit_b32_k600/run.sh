@@ -1,9 +1,9 @@
 work_path=$(dirname $0)
-PYTHONPATH=$PYTHONPATH:../../slowfast \
+PYTHONPATH=$PYTHONPATH:./slowfast \
 python tools/run_net_bn_pseudo.py \
   --init_method tcp://localhost:10234 \
   --cfg $work_path/config.yaml \
-  DATA.PATH_PREFIX ../../data \
+  DATA.PATH_PREFIX ./data \
   DATA.PATH_LABEL_SEPARATOR "," \
   TRAIN.EVAL_PERIOD 1 \
   TRAIN.CHECKPOINT_PERIOD 5 \
@@ -20,8 +20,8 @@ python tools/run_net_bn_pseudo.py \
   TEST.DATA_SELECT dark_unlabel \
   TEST.TEST_BEST True \
   TRAIN.SAVE_LATEST True \
-  DATA.PSEUDO_CSV ../../data/pseudo/stage1.csv \
-  TRAIN.CHECKPOINT_FILE_PATH  ../../exp_adapt_bn/mvit_b32_k600/best.pyth \
+  DATA.PSEUDO_CSV pseudo/stage1.csv \
+  TRAIN.CHECKPOINT_FILE_PATH  ./exp_adapt_bn/mvit_b32_k600/best.pyth \
   TRAIN.CHECKPOINT_EPOCH_RESET True \
   TRAIN.THRESHOLD -1 \
   RNG_SEED 6666 \

@@ -3,7 +3,7 @@ PYTHONPATH=$PYTHONPATH:../../slowfast \
 python tools/run_net_bn_pseudo.py \
   --init_method tcp://localhost:10237 \
   --cfg $work_path/config.yaml \
-  DATA.PATH_PREFIX ../../data \
+  DATA.PATH_PREFIX ./data \
   DATA.PATH_LABEL_SEPARATOR "," \
   TRAIN.EVAL_PERIOD 1 \
   TRAIN.CHECKPOINT_PERIOD 5 \
@@ -20,7 +20,7 @@ python tools/run_net_bn_pseudo.py \
   TEST.DATA_SELECT dark_unlabel \
   TEST.TEST_BEST True \
   TRAIN.SAVE_LATEST True \
-  DATA.PSEUDO_CSV ../../data/pseudo/stage4.csv \
+  DATA.PSEUDO_CSV pseudo/stage4.csv \
   TRAIN.THRESHOLD -1 \
   RNG_SEED 6666 \
   OUTPUT_DIR $work_path

@@ -3,7 +3,7 @@ PYTHONPATH=$PYTHONPATH:../../slowfast \
 python tools/run_net_bn.py \
   --init_method tcp://localhost:10234 \
   --cfg $work_path/config.yaml \
-  DATA.PATH_PREFIX ../../data \
+  DATA.PATH_PREFIX ./data \
   DATA.PATH_LABEL_SEPARATOR "," \
   TRAIN.EVAL_PERIOD 1 \
   TRAIN.CHECKPOINT_PERIOD 5 \
