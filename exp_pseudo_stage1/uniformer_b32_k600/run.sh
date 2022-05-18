@@ -1,6 +1,6 @@
 work_path=$(dirname $0)
 PYTHONPATH=$PYTHONPATH:../../slowfast \
-python tools/run_net_bn.py \
+python tools/run_net_bn_pseudo.py \
   --init_method tcp://localhost:10236 \
   --cfg $work_path/config.yaml \
   DATA.PATH_PREFIX ../../data \
